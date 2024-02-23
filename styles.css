@@ -30,7 +30,7 @@ body{
     justify-content: center;
     align-items: center;
     position: relative; /*so that X looks good*/
-    cursor: pointer;
+    cursor: pointer; /*pointer when hovering over empty cell*/
 
 }
 
@@ -58,38 +58,103 @@ body{
     border-bottom: none;
 }
 
+.cell.x,
+.cell.circle {
+    cursor: not-allowed; /*cursor when hovering over cell that was already used*/
+}
+
 .cell.x::before,
-.cell.x::after {
+.cell.x::after{
+    background-color: black;
+}
+
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after{
+    background-color: lightgray;
+    }
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before, /*using same code as for "cell.x::before" for the transparent X or O when hovering over empty cell*/
+.board.x .cell:not(.x):not(.circle):hover::after { /*not(.x):not(.circle): used so that when X or O would not apply/show when hovering over a used cell*/
     content: "";
     position: absolute; /*without this the X crosses are wonky*/
     width: calc(var(--mark-size) * .15);
     height: var(--mark-size);
-    background-color: black;
 }
 
-.cell.x::before{
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle):hover::before{
     transform: rotate(45deg);
 }
 
-.cell.x::after{ 
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::after{ 
     transform:rotate(-45deg);
 }
 
 .cell.circle::before,
-.cell.circle::after {
+.cell.circle::after{
+    background-color: black;
+}
+
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after{
+    background-color: lightgray;
+    }
+
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
     content: '';
     position: absolute;
    border-radius: 50%;
 }
 
-.cell.circle::before{
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before{
     width:var(--mark-size);
     height:var(--mark-size);
-    background-color: black;
 }
 
-.cell.circle::after{
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after{
     width:calc(var(--mark-size)*.7);
     height:calc(var(--mark-size)*.7);
     background-color: white;
+}
+
+.winning-message{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .9);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+}
+
+.winning-message button{
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: .25em .5em;
+    cursor: pointer;
+}
+
+.winning-message button:hover{
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+
+.winning-message.show{ /*created in order to be used when we want to show the winning message*/
+    display: flex;
+
 }
