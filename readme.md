@@ -1,3 +1,5 @@
+TicTacToe by Web Dev Simplified
+
 Notes
 
 1. give a "div" class and id, in order to sepparate class for CSS and id for JS
